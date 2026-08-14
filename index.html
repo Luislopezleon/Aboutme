@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark" data-lang="es">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Luis López León — Backend & IA</title>
+<meta name="description" content="Portfolio de Luis López León, estudiante de Ingeniería Informática especializado en backend, automatización e IA aplicada." />
+<meta name="color-scheme" content="dark light" />
+<meta name="theme-color" content="#0b0c0e" />
+
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500;1,9..144,600&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="is-loading">
+
+<div class="cursor-glow" aria-hidden="true"></div>
+<div class="grain" aria-hidden="true"></div>
+<div class="theme-veil" aria-hidden="true"></div>
+
+<header class="topbar">
+  <a href="#hero" class="topbar__brand" aria-label="Inicio">
+    <span class="topbar__mark">LL</span>
+  </a>
+
+  <nav class="pillnav" aria-label="Navegación principal">
+    <span class="pillnav__indicator" aria-hidden="true"></span>
+    <a href="#about" class="pillnav__link" data-section="about" data-i18n="nav.about">Sobre mí</a>
+    <a href="#education" class="pillnav__link" data-section="education" data-i18n="nav.education">Educación</a>
+    <a href="#experience" class="pillnav__link" data-section="experience" data-i18n="nav.experience">Experiencia</a>
+    <a href="#projects" class="pillnav__link" data-section="projects" data-i18n="nav.projects">Proyectos</a>
+    <a href="#skills" class="pillnav__link" data-section="skills" data-i18n="nav.skills">Skills</a>
+    <a href="#contact" class="pillnav__link" data-section="contact" data-i18n="nav.contact">Contacto</a>
+  </nav>
+
+  <div class="topbar__controls">
+    <div class="topbar__clock" aria-hidden="true">
+      <span class="topbar__dot"></span>
+      <span class="topbar__time" id="clock">--:--:--</span>
+      <span class="topbar__tz">CÓRDOBA</span>
+    </div>
+    <button class="btn-toggle" id="lang-toggle" type="button" aria-label="Cambiar idioma / Switch language">
+      <span class="btn-toggle__opt is-active" data-lang-opt="es">ES</span>
+      <span class="btn-toggle__sep">/</span>
+      <span class="btn-toggle__opt" data-lang-opt="en">EN</span>
+    </button>
+    <button class="btn-toggle btn-toggle--icon" id="theme-toggle" type="button" aria-label="Cambiar tema claro/oscuro">
+      <svg class="icon icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v3M12 18.5v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2.5 12h3M18.5 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+      <svg class="icon icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg>
+    </button>
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="hero__inner">
+      <p class="hero__badge reveal-up" style="--i:0">
+        <span class="pulse-dot" aria-hidden="true"></span>
+        <span data-i18n="hero.badge">Disponible para prácticas</span>
+      </p>
+
+      <h1 class="hero__title">
+        <span class="lang-block" data-lang="es">
+          <span class="word" style="--i:1">Hago</span>
+          <span class="word" style="--i:2">que</span>
+          <span class="word" style="--i:3">el</span>
+          <span class="word" style="--i:4">software</span>
+          <span class="word" style="--i:5">piense</span>
+          <em><span class="word" style="--i:6">solo.</span></em>
+        </span>
+        <span class="lang-block" data-lang="en" hidden>
+          <span class="word" style="--i:1">I</span>
+          <span class="word" style="--i:2">make</span>
+          <span class="word" style="--i:3">software</span>
+          <span class="word" style="--i:4">think</span>
+          <em><span class="word" style="--i:5">for</span> <span class="word" style="--i:6">itself.</span></em>
+        </span>
+      </h1>
+
+      <p class="hero__subtitle reveal-up" style="--i:7" data-i18n="hero.subtitle">
+        Estudiante de Ingeniería Informática especializado en backend y automatización con IA. Diseño sistemas eficientes y dejo que las máquinas hagan el trabajo repetitivo.
+      </p>
+
+      <div class="hero__foot reveal-up" style="--i:8">
+        <span class="hero__location" data-i18n="hero.location">Córdoba, España</span>
+        <span class="hero__sep">·</span>
+        <a class="hero__link" href="https://github.com/Luislopezleon" target="_blank" rel="noopener">github.com/Luislopezleon</a>
+      </div>
+    </div>
+
+    <div class="hero__scroll" aria-hidden="true">
+      <span class="hero__scroll-track"><span class="hero__scroll-dot"></span></span>
+      <span class="hero__scroll-label" data-i18n="hero.scroll">scroll</span>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="about" id="about">
+    <div class="about__sticky">
+      <div class="about__panel">
+        <div class="about__grid" aria-hidden="true"></div>
+        <div class="about__content">
+          <span class="section-label section-label--onpanel" data-i18n="about.label">( 01 ) — Sobre mí</span>
+          <h2 class="about__heading" data-i18n="about.heading">Soy Luis. Ingeniero por formación, automatizador por obsesión.</h2>
+          <p class="about__body" data-i18n="about.body">
+            Empecé programando en C y C++ para entender cómo funcionan las cosas por dentro, y hoy construyo APIs y microservicios en Python que casi funcionan solos. Uso la IA como una herramienta más del oficio: para refactorizar, diagnosticar y acelerar lo que antes llevaba horas. Ahora mismo sigo aprendiendo — parte del curso lo haré en Ostrava, República Checa, dentro de mi programa Erasmus+.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDUCATION -->
+  <section class="education" id="education">
+    <div class="section-head" data-reveal>
+      <span class="section-label" data-i18n="education.label">( 02 ) — Educación</span>
+      <h2 class="section-heading" data-i18n="education.heading">Formación</h2>
+    </div>
+
+    <div class="timeline">
+      <div class="timeline__track" aria-hidden="true">
+        <div class="timeline__track-fill" id="timeline-fill"></div>
+      </div>
+
+      <div class="timeline__item" data-tl-item>
+        <span class="timeline__dot" aria-hidden="true"></span>
+        <div class="timeline__content">
+          <span class="timeline__date" data-i18n="education.uco.date">Sep 2023 — 2027 (previsto)</span>
+          <h3 data-i18n="education.uco.title">Grado en Ingeniería Informática — Computación</h3>
+          <p class="timeline__place" data-i18n="education.uco.place">Universidad de Córdoba (UCO) - EPSC, España</p>
+          <p data-i18n="education.uco.desc">Cuarto curso. Especialización en computación, con base en algoritmia, sistemas y desarrollo de software.</p>
+        </div>
+      </div>
+
+      <div class="timeline__item" data-tl-item>
+        <span class="timeline__dot" aria-hidden="true"></span>
+        <div class="timeline__content">
+          <span class="timeline__date" data-i18n="education.erasmus.date">Sep 2025 — Jun 2026</span>
+          <h3 data-i18n="education.erasmus.title">Programa de Intercambio Erasmus+</h3>
+          <p class="timeline__place" data-i18n="education.erasmus.place">VSB-TUO, Ostrava, República Checa</p>
+          <p data-i18n="education.erasmus.desc">Curso completo impartido en inglés. Una vuelta de tuerca a mi forma de estudiar y de trabajar en equipo.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="experience" id="experience">
+    <div class="section-head" data-reveal>
+      <span class="section-label" data-i18n="experience.label">( 03 ) — Experiencia</span>
+      <h2 class="section-heading" data-i18n="experience.heading">Experiencia laboral</h2>
+    </div>
+
+    <div class="experience__grid">
+      <div class="terminal">
+        <div class="terminal__bar">
+          <span class="terminal__dot terminal__dot--red"></span>
+          <span class="terminal__dot terminal__dot--yellow"></span>
+          <span class="terminal__dot terminal__dot--green"></span>
+          <span class="terminal__title">luis@plenitas: ~</span>
+        </div>
+        <div class="terminal__body" id="terminal-body">
+          <p class="terminal__line" data-type-line data-i18n="experience.line1">$ whoami</p>
+          <p class="terminal__line" data-type-line data-i18n="experience.line2">&gt; desarrollador_backend_practicas</p>
+          <p class="terminal__line" data-type-line data-i18n="experience.line3">$ cat stack.txt</p>
+          <p class="terminal__line" data-type-line data-i18n="experience.line4">&gt; Python · FastAPI · PostgreSQL · Docker · GitLab CI/CD · Pytest</p>
+          <p class="terminal__line" data-type-line data-i18n="experience.line5">$ git log --oneline -3</p>
+          <p class="terminal__line" data-type-line data-i18n="experience.line6">&gt; feat: microservicios RESTful escalables con integración de IA</p>
+          <p class="terminal__line" data-type-line data-i18n="experience.line7">&gt; test: suite de pruebas automatizadas con Pytest</p>
+          <p class="terminal__line" data-type-line data-i18n="experience.line8">&gt; chore: flujos GitFlow + Scrum, documentación en Jira/Confluence</p>
+          <span class="terminal__cursor" aria-hidden="true"></span>
+        </div>
+      </div>
+
+      <div class="experience__meta" data-reveal>
+        <h3 data-i18n="experience.role">Desarrollador Backend (Prácticas)</h3>
+        <p class="experience__place" data-i18n="experience.place">Plenitas — Córdoba, España</p>
+        <p class="experience__date" data-i18n="experience.date">Jul 2026 — Sep 2026</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="projects" id="projects">
+    <div class="section-head" data-reveal>
+      <span class="section-label" data-i18n="projects.label">( 04 ) — Proyectos</span>
+      <h2 class="section-heading" data-i18n="projects.heading">Proyectos</h2>
+    </div>
+
+    <div class="stack">
+      <article class="stack__card" style="--stack-i:0">
+        <div class="stack__card-inner">
+          <div class="stack__top">
+            <span class="stack__year" data-i18n="projects.clinics.year">2025</span>
+            <span class="stack__tag" data-i18n="projects.clinics.tag">AWS · Docker · RAG · n8n</span>
+          </div>
+          <h3 data-i18n="projects.clinics.title">Sistemas de IA y automatización para clínicas</h3>
+          <p data-i18n="projects.clinics.desc">Agentes con arquitectura RAG, bots de WhatsApp 24/7 y agentes de voz mediante la API de Meta que gestionan citas y atención básica, integrados con los sistemas de gestión de las clínicas. Desplegado en AWS (EC2) con Docker para alta disponibilidad.</p>
+          <div class="stack__impact">
+            <span data-i18n="projects.impactLabel">Impacto</span>
+            <strong data-i18n="projects.clinics.impact">Horas de gestión administrativa liberadas cada semana.</strong>
+          </div>
+          <span class="stack__badge" data-i18n="projects.private">Proyecto privado</span>
+        </div>
+      </article>
+
+      <article class="stack__card" style="--stack-i:1">
+        <div class="stack__card-inner">
+          <div class="stack__top">
+            <span class="stack__year" data-i18n="projects.meetmind.year">2025</span>
+            <span class="stack__tag" data-i18n="projects.meetmind.tag">FastAPI · LangGraph · Gemini · WebSockets</span>
+          </div>
+          <h3 data-i18n="projects.meetmind.title">MeetMind — Agente de inteligencia para reuniones</h3>
+          <p data-i18n="projects.meetmind.desc">Un agente autónomo que se une a videollamadas, transcribe en tiempo real y extrae decisiones, tareas y riesgos con un pipeline de 5 nodos construido en LangGraph.</p>
+          <div class="stack__impact">
+            <span data-i18n="projects.roleLabel">Rol</span>
+            <strong data-i18n="projects.meetmind.role">Arquitectura backend y diseño del agente de IA</strong>
+          </div>
+          <a class="stack__badge stack__badge--link" href="https://github.com/Luislopezleon/Meetmind" target="_blank" rel="noopener">
+            <span data-i18n="projects.viewRepo">Ver repositorio</span> ↗
+          </a>
+        </div>
+      </article>
+
+      <article class="stack__card" style="--stack-i:2">
+        <div class="stack__card-inner">
+          <div class="stack__top">
+            <span class="stack__year" data-i18n="projects.ml.year">Dic 2025</span>
+            <span class="stack__tag" data-i18n="projects.ml.tag">Python · Scikit-Learn · Pandas</span>
+          </div>
+          <h3 data-i18n="projects.ml.title">Predicción de enfermedad cardíaca</h3>
+          <p data-i18n="projects.ml.desc">Modelo predictivo sobre datos clínicos, comparando algoritmos de Machine Learning hasta lograr un 89% de precisión con Random Forest.</p>
+          <div class="stack__impact">
+            <span data-i18n="projects.impactLabel">Impacto</span>
+            <strong data-i18n="projects.ml.impact">89% de precisión tras ajuste exhaustivo de hiperparámetros.</strong>
+          </div>
+          <span class="stack__badge" data-i18n="projects.academic">Proyecto académico</span>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="skills" id="skills">
+    <div class="section-head" data-reveal>
+      <span class="section-label" data-i18n="skills.label">( 05 ) — Skills</span>
+      <h2 class="section-heading" data-i18n="skills.heading">Skills</h2>
+    </div>
+
+    <div class="skills__grid" data-reveal>
+      <div class="skills__group">
+        <p class="skills__cmd">$ ls backend/</p>
+        <ul class="skills__tags">
+          <li>Python (FastAPI)</li><li>C</li><li>C++</li><li data-i18n="skills.microservices">Arquitectura de microservicios</li><li data-i18n="skills.apiDesign">Diseño de APIs</li>
+        </ul>
+      </div>
+      <div class="skills__group">
+        <p class="skills__cmd">$ ls infra/</p>
+        <ul class="skills__tags">
+          <li>PostgreSQL</li><li>SQL</li><li>Bash</li><li>AWS (EC2)</li><li>Docker</li><li data-i18n="skills.linux">Linux</li>
+        </ul>
+      </div>
+      <div class="skills__group">
+        <p class="skills__cmd">$ ls ai/</p>
+        <ul class="skills__tags">
+          <li data-i18n="skills.rag">Arquitectura RAG</li><li>n8n</li><li data-i18n="skills.metaApi">API de Meta</li><li>Scikit-Learn</li><li>Machine Learning</li>
+        </ul>
+      </div>
+      <div class="skills__group">
+        <p class="skills__cmd">$ ls ai-workflow/</p>
+        <ul class="skills__tags">
+          <li data-i18n="skills.aiAssisted">Desarrollo asistido por IA</li><li data-i18n="skills.promptEng">Prompt Engineering</li><li data-i18n="skills.aiCli">CLIs de IA</li>
+        </ul>
+      </div>
+      <div class="skills__group">
+        <p class="skills__cmd">$ ls methodology/</p>
+        <ul class="skills__tags">
+          <li>Git</li><li>GitHub Actions</li><li>GitLab CI</li><li>Scrum</li><li>Jira</li><li>Confluence</li>
+        </ul>
+      </div>
+      <div class="skills__group">
+        <p class="skills__cmd">$ ls languages/</p>
+        <ul class="skills__tags">
+          <li data-i18n="skills.spanish">Español (nativo)</li><li data-i18n="skills.english">Inglés (C1 — Aptis)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span data-i18n="contact.marquee">ESCRÍBEME · CONECTEMOS · HABLEMOS DE TU PROYECTO · </span>
+        <span data-i18n="contact.marquee">ESCRÍBEME · CONECTEMOS · HABLEMOS DE TU PROYECTO · </span>
+      </div>
+    </div>
+
+    <div class="contact__content" data-reveal>
+      <span class="section-label" data-i18n="contact.label">( 06 ) — Contacto</span>
+      <h2 data-i18n="contact.heading">Contacto</h2>
+
+      <div class="contact__links">
+        <a class="magnetic" href="mailto:luislopezleon2005@gmail.com">
+          <span class="magnetic__inner">luislopezleon2005@gmail.com</span>
+        </a>
+        <a class="magnetic" href="https://linkedin.com/in/luislopezleon" target="_blank" rel="noopener">
+          <span class="magnetic__inner">LinkedIn ↗</span>
+        </a>
+        <a class="magnetic" href="https://github.com/Luislopezleon" target="_blank" rel="noopener">
+          <span class="magnetic__inner">GitHub ↗</span>
+        </a>
+        <a class="magnetic" href="tel:+34611088848">
+          <span class="magnetic__inner">+34 611 08 88 48</span>
+        </a>
+      </div>
+
+      <p class="contact__langs" data-i18n="contact.languages">Español (nativo) · Inglés (C1)</p>
+    </div>
+
+    <footer class="footer">
+      <p data-i18n="footer.note">Diseñado y construido por Luis López León · 2026</p>
+    </footer>
+  </section>
+
+</main>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>
