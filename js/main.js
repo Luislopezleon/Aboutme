@@ -7,54 +7,77 @@ document.addEventListener("DOMContentLoaded", () => {
   initLang();
   initTheme();
   initClock();
-  initCursorGlow();
+  initCursorDot();
   initNav();
+  initSplitText();
   initGenericReveal();
   initAboutPanel();
   initTimeline();
   initTerminalTyping();
-  initProjectStack();
+  initProjectsHorizontal();
   initMagneticLinks();
+  initScrollProgress();
+  initDividerReveal();
+  initSkillsGridGlow();
 
-  // release the opacity guard once everything is wired up
   requestAnimationFrame(() => document.body.classList.remove("is-loading"));
 });
 
 /* --------------------------------------------------------------------
-   Clock — small living detail in the topbar
+   Clock
    -------------------------------------------------------------------- */
 function initClock() {
   const el = document.getElementById("clock");
   if (!el) return;
   const tick = () => {
-    const now = new Date();
-    el.textContent = now.toLocaleTimeString("es-ES", { hour12: false });
+    el.textContent = new Date().toLocaleTimeString("es-ES", { hour12: false });
   };
   tick();
   setInterval(tick, 1000);
 }
 
 /* --------------------------------------------------------------------
-   Cursor glow — subtle radial light that follows the pointer
+   Custom cursor dot — expands on interactive elements
    -------------------------------------------------------------------- */
-function initCursorGlow() {
-  const glow = document.querySelector(".cursor-glow");
-  if (!glow || prefersReducedMotion) return;
+function initCursorDot() {
+  const dot = document.querySelector(".cursor-dot");
+  if (!dot || prefersReducedMotion) return;
+  if (window.matchMedia("(pointer: coarse)").matches) return;
 
-  let raf = null;
+  let mx = 0, my = 0, cx = 0, cy = 0;
+  let visible = false;
+
   window.addEventListener("pointermove", (e) => {
-    document.body.classList.add("cursor-active");
-    if (raf) return;
-    raf = requestAnimationFrame(() => {
-      glow.style.transform = `translate(${e.clientX}px, ${e.clientY}px) translate(-50%, -50%)`;
-      raf = null;
-    });
+    mx = e.clientX;
+    my = e.clientY;
+    if (!visible) { visible = true; dot.classList.add("is-visible"); }
   });
-  window.addEventListener("pointerleave", () => document.body.classList.remove("cursor-active"));
+  window.addEventListener("pointerleave", () => {
+    visible = false;
+    dot.classList.remove("is-visible");
+  });
+
+  // Smooth follow with lerp
+  function animate() {
+    cx += (mx - cx) * 0.15;
+    cy += (my - cy) * 0.15;
+    dot.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+    requestAnimationFrame(animate);
+  }
+  animate();
+
+  // Expand on interactive elements
+  const interactives = "a, button, .magnetic, .project-card__badge--link, .skills__tags li, .topbar__brand";
+  document.addEventListener("pointerover", (e) => {
+    if (e.target.closest(interactives)) dot.classList.add("is-hovering");
+  });
+  document.addEventListener("pointerout", (e) => {
+    if (e.target.closest(interactives)) dot.classList.remove("is-hovering");
+  });
 }
 
 /* --------------------------------------------------------------------
-   Nav — sliding pill indicator that tracks the active section
+   Nav — pill indicator
    -------------------------------------------------------------------- */
 function initNav() {
   const links = Array.from(document.querySelectorAll(".pillnav__link"));
@@ -101,7 +124,38 @@ function initNav() {
 }
 
 /* --------------------------------------------------------------------
-   Generic reveal-on-scroll for elements marked [data-reveal]
+   Split Text — splits hero title into individual characters with
+   a 3D rotation reveal animation
+   -------------------------------------------------------------------- */
+function initSplitText() {
+  const titles = document.querySelectorAll("[data-split]");
+  titles.forEach((title) => {
+    const blocks = title.querySelectorAll(".lang-block");
+    blocks.forEach((block) => {
+      const text = block.textContent.trim();
+      block.textContent = "";
+      let charIndex = 0;
+
+      text.split("").forEach((char) => {
+        if (char === " ") {
+          const space = document.createElement("span");
+          space.className = "word-space";
+          block.appendChild(space);
+        } else {
+          const span = document.createElement("span");
+          span.className = "char";
+          span.textContent = char;
+          span.style.setProperty("--char-i", charIndex);
+          block.appendChild(span);
+          charIndex++;
+        }
+      });
+    });
+  });
+}
+
+/* --------------------------------------------------------------------
+   Generic reveal-on-scroll
    -------------------------------------------------------------------- */
 function initGenericReveal() {
   const els = document.querySelectorAll("[data-reveal]");
@@ -115,24 +169,41 @@ function initGenericReveal() {
         }
       });
     },
-    { threshold: 0.2 }
+    { threshold: 0.15 }
   );
   els.forEach((el) => observer.observe(el));
 }
 
 /* --------------------------------------------------------------------
-   About section — the panel that GROWS from a small box into a
-   full-bleed pinned canvas as you scroll through it, then reveals
-   its content. Pure scroll-progress driven, no scroll-jacking.
+   About — Cinematic panel growth
+   Slow, deliberate, satisfying. The panel starts tiny, grows into
+   a full-bleed hero with smooth spring-like easing. Content fades in
+   progressively DURING the growth so there's no dead time.
    -------------------------------------------------------------------- */
 function initAboutPanel() {
   const section = document.querySelector(".about");
   const panel = document.querySelector(".about__panel");
   if (!section || !panel) return;
 
-  const MIN_W = 30, MAX_W = 92; // vw
-  const MIN_H = 30, MAX_H = 82; // vh
-  const MIN_R = 32, MAX_R = 8; // px
+  const MIN_W = 18, MAX_W = 96; // vw
+  const MIN_H = 16, MAX_H = 88; // vh
+  const MIN_R = 44, MAX_R = 0; // px (full bleed = no radius)
+
+  function fade(progress, start, end) {
+    return Math.min(Math.max((progress - start) / (end - start), 0), 1);
+  }
+
+  // Custom easing — starts slow, accelerates in the middle, decelerates at end
+  function cinematicEase(t) {
+    // smooth S-curve (sine-based)
+    return t < 0.5
+      ? (1 - Math.cos(t * Math.PI)) / 2
+      : (1 - Math.cos(t * Math.PI)) / 2;
+  }
+
+  let ticking = false;
+  let currentW = MIN_W, currentH = MIN_H, currentR = MIN_R;
+  let targetW = MIN_W, targetH = MIN_H, targetR = MIN_R;
 
   function update() {
     const rect = section.getBoundingClientRect();
@@ -140,31 +211,50 @@ function initAboutPanel() {
     const scrolled = Math.min(Math.max(-rect.top, 0), total);
     const progress = total > 0 ? scrolled / total : 0;
 
-    // growth happens across the first 60% of the scroll range,
-    // then content fades in across the remaining 40% while pinned full-size
-    const growProgress = Math.min(progress / 0.6, 1);
-    const contentProgress = Math.max((progress - 0.55) / 0.45, 0);
+    // Growth spans 0% — 60% of scroll (slow, cinematic)
+    const growRaw = Math.min(progress / 0.6, 1);
+    const eased = cinematicEase(growRaw);
 
-    const eased = 1 - Math.pow(1 - growProgress, 3); // ease-out cubic
+    targetW = MIN_W + (MAX_W - MIN_W) * eased;
+    targetH = MIN_H + (MAX_H - MIN_H) * eased;
+    targetR = MIN_R + (MAX_R - MIN_R) * eased;
 
-    const w = MIN_W + (MAX_W - MIN_W) * eased;
-    const h = MIN_H + (MAX_H - MIN_H) * eased;
-    const r = MIN_R + (MAX_R - MIN_R) * eased;
+    // Lerp for extra smoothness
+    currentW += (targetW - currentW) * 0.12;
+    currentH += (targetH - currentH) * 0.12;
+    currentR += (targetR - currentR) * 0.12;
 
-    panel.style.setProperty("--panel-w", `${w}vw`);
-    panel.style.setProperty("--panel-h", `${h}vh`);
-    panel.style.setProperty("--panel-r", `${r}px`);
-    panel.style.setProperty("--panel-content-o", Math.min(contentProgress * 1.4, 1));
+    panel.style.setProperty("--panel-w", `${currentW}vw`);
+    panel.style.setProperty("--panel-h", `${currentH}vh`);
+    panel.style.setProperty("--panel-r", `${currentR}px`);
+
+    // Content reveals overlap with growth — starts early, staggers in
+    panel.style.setProperty("--panel-grid-o", fade(progress, 0.05, 0.25));
+    panel.style.setProperty("--panel-label-o", fade(progress, 0.15, 0.35));
+    panel.style.setProperty("--panel-heading-o", fade(progress, 0.25, 0.50));
+    panel.style.setProperty("--panel-body-o", fade(progress, 0.40, 0.65));
+
+    ticking = false;
+    // Keep animating if lerping hasn't converged
+    if (Math.abs(targetW - currentW) > 0.01) {
+      requestAnimationFrame(update);
+    }
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
   }
 
   update();
-  window.addEventListener("scroll", update, { passive: true });
-  window.addEventListener("resize", update);
+  window.addEventListener("scroll", onScroll, { passive: true });
+  window.addEventListener("resize", () => { currentW = targetW; currentH = targetH; currentR = targetR; update(); });
 }
 
 /* --------------------------------------------------------------------
-   Education timeline — vertical progress line that fills with scroll,
-   items that slide in individually.
+   Timeline
    -------------------------------------------------------------------- */
 function initTimeline() {
   const track = document.getElementById("timeline-fill");
@@ -188,7 +278,7 @@ function initTimeline() {
         if (entry.isIntersecting) entry.target.classList.add("is-visible");
       });
     },
-    { threshold: 0.3 }
+    { threshold: 0.25 }
   );
   items.forEach((item) => observer.observe(item));
 
@@ -198,8 +288,7 @@ function initTimeline() {
 }
 
 /* --------------------------------------------------------------------
-   Experience terminal — lines "type" themselves in as the terminal
-   scrolls into view, like a real shell session booting up.
+   Terminal typing
    -------------------------------------------------------------------- */
 function initTerminalTyping() {
   const terminal = document.querySelector(".terminal");
@@ -208,7 +297,7 @@ function initTerminalTyping() {
 
   let started = false;
 
-  function typeLine(line, cps = 55) {
+  function typeLine(line, cps = 60) {
     return new Promise((resolve) => {
       const full = line.textContent;
       if (prefersReducedMotion) {
@@ -222,11 +311,8 @@ function initTerminalTyping() {
       const step = () => {
         line.textContent = full.slice(0, i);
         i++;
-        if (i <= full.length) {
-          setTimeout(step, 1000 / cps);
-        } else {
-          resolve();
-        }
+        if (i <= full.length) setTimeout(step, 1000 / cps);
+        else resolve();
       };
       step();
     });
@@ -235,7 +321,7 @@ function initTerminalTyping() {
   async function runSequence() {
     for (const line of lines) {
       await typeLine(line);
-      await new Promise((r) => setTimeout(r, 90));
+      await new Promise((r) => setTimeout(r, 60));
     }
   }
 
@@ -250,51 +336,63 @@ function initTerminalTyping() {
         }
       });
     },
-    { threshold: 0.4 }
+    { threshold: 0.35 }
   );
   observer.observe(terminal);
 }
 
 /* --------------------------------------------------------------------
-   Projects — cards stack with a sticky-scale illusion: each card
-   pins near the top and subtly scales/dims down as the next one
-   arrives on top of it, creating a fluid layered-deck feel.
+   Projects — Horizontal scroll driven by vertical scrolling
+   Cards slide horizontally as you scroll vertically through the
+   300vh container. Smooth, premium Apple-style.
    -------------------------------------------------------------------- */
-function initProjectStack() {
-  const cards = document.querySelectorAll(".stack__card");
-  if (!cards.length) return;
+function initProjectsHorizontal() {
+  const wrapper = document.querySelector(".projects-scroll");
+  const track = document.getElementById("projects-track");
+  if (!wrapper || !track) return;
+
+  let ticking = false;
 
   function update() {
-    cards.forEach((card, index) => {
-      const inner = card.querySelector(".stack__card-inner");
-      const rect = card.getBoundingClientRect();
-      const next = cards[index + 1];
+    const rect = wrapper.getBoundingClientRect();
+    const total = rect.height - window.innerHeight;
+    const scrolled = Math.min(Math.max(-rect.top, 0), total);
+    const progress = total > 0 ? scrolled / total : 0;
 
-      if (!next) return; // last card never shrinks
+    // Calculate how far to shift: total track width minus one viewport
+    const trackWidth = track.scrollWidth;
+    const viewportWidth = window.innerWidth;
+    const maxShift = trackWidth - viewportWidth + 100; // 100px end padding
 
-      const nextRect = next.getBoundingClientRect();
-      const stickyTop = window.innerHeight * 0.12;
-      // progress of the *next* card approaching this one
-      const distance = nextRect.top - stickyTop;
-      const range = window.innerHeight * 0.9;
-      const progress = 1 - Math.min(Math.max(distance / range, 0), 1);
+    const shift = progress * maxShift;
+    track.style.transform = `translateX(-${shift}px)`;
 
-      const scale = 1 - progress * 0.08;
-      const opacity = 1 - progress * 0.45;
-      const translate = progress * 14;
-
-      inner.style.transform = `scale(${scale}) translateY(-${translate}px)`;
-      inner.style.opacity = opacity;
+    // Subtle parallax on individual cards
+    const cards = track.querySelectorAll(".project-card");
+    cards.forEach((card, i) => {
+      const cardProgress = progress * cards.length - i;
+      const rotation = Math.max(-2, Math.min(2, (cardProgress - 0.5) * 1.5));
+      const scale = 1 - Math.abs(cardProgress - 0.5) * 0.02;
+      card.style.transform = `rotateY(${rotation}deg) scale(${Math.max(0.96, scale)})`;
     });
+
+    ticking = false;
+  }
+
+  function onScroll() {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
   }
 
   update();
-  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("scroll", onScroll, { passive: true });
   window.addEventListener("resize", update);
 }
 
 /* --------------------------------------------------------------------
-   Magnetic contact links — text nudges toward the cursor
+   Magnetic links
    -------------------------------------------------------------------- */
 function initMagneticLinks() {
   if (prefersReducedMotion) return;
@@ -304,13 +402,73 @@ function initMagneticLinks() {
 
     link.addEventListener("mousemove", (e) => {
       const rect = link.getBoundingClientRect();
-      const x = (e.clientX - rect.left - rect.width / 2) * 0.25;
+      const x = (e.clientX - rect.left - rect.width / 2) * 0.3;
       const y = (e.clientY - rect.top - rect.height / 2) * 0.4;
       inner.style.transform = `translate(${x}px, ${y}px)`;
     });
 
     link.addEventListener("mouseleave", () => {
       inner.style.transform = "translate(0, 0)";
+    });
+  });
+}
+
+/* --------------------------------------------------------------------
+   Scroll progress bar
+   -------------------------------------------------------------------- */
+function initScrollProgress() {
+  const bar = document.querySelector(".scroll-progress");
+  if (!bar) return;
+
+  let ticking = false;
+  function update() {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = `${pct}%`;
+    ticking = false;
+  }
+
+  window.addEventListener("scroll", () => {
+    if (!ticking) { ticking = true; requestAnimationFrame(update); }
+  }, { passive: true });
+  update();
+}
+
+/* --------------------------------------------------------------------
+   Section dividers — line draws on scroll
+   -------------------------------------------------------------------- */
+function initDividerReveal() {
+  const dividers = document.querySelectorAll(".section-divider");
+  if (!dividers.length) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.3 }
+  );
+  dividers.forEach((d) => observer.observe(d));
+}
+
+/* --------------------------------------------------------------------
+   Skills grid — radial glow follows cursor across the whole grid
+   -------------------------------------------------------------------- */
+function initSkillsGridGlow() {
+  if (prefersReducedMotion) return;
+  const groups = document.querySelectorAll(".skills__group");
+  groups.forEach((group) => {
+    group.addEventListener("mousemove", (e) => {
+      const rect = group.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      group.style.setProperty("--mouse-x", `${x}px`);
+      group.style.setProperty("--mouse-y", `${y}px`);
     });
   });
 }

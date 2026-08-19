@@ -6,7 +6,7 @@
 <title>Luis López León — Backend & IA</title>
 <meta name="description" content="Portfolio de Luis López León, estudiante de Ingeniería Informática especializado en backend, automatización e IA aplicada." />
 <meta name="color-scheme" content="dark light" />
-<meta name="theme-color" content="#0b0c0e" />
+<meta name="theme-color" content="#08090c" />
 
 <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
 
@@ -18,7 +18,8 @@
 </head>
 <body class="is-loading">
 
-<div class="cursor-glow" aria-hidden="true"></div>
+<div class="scroll-progress" aria-hidden="true"></div>
+<div class="cursor-dot" aria-hidden="true"></div>
 <div class="grain" aria-hidden="true"></div>
 <div class="theme-veil" aria-hidden="true"></div>
 
@@ -65,22 +66,9 @@
         <span data-i18n="hero.badge">Disponible para prácticas</span>
       </p>
 
-      <h1 class="hero__title">
-        <span class="lang-block" data-lang="es">
-          <span class="word" style="--i:1">Hago</span>
-          <span class="word" style="--i:2">que</span>
-          <span class="word" style="--i:3">el</span>
-          <span class="word" style="--i:4">software</span>
-          <span class="word" style="--i:5">piense</span>
-          <em><span class="word" style="--i:6">solo.</span></em>
-        </span>
-        <span class="lang-block" data-lang="en" hidden>
-          <span class="word" style="--i:1">I</span>
-          <span class="word" style="--i:2">make</span>
-          <span class="word" style="--i:3">software</span>
-          <span class="word" style="--i:4">think</span>
-          <em><span class="word" style="--i:5">for</span> <span class="word" style="--i:6">itself.</span></em>
-        </span>
+      <h1 class="hero__title" data-split>
+        <span class="lang-block" data-lang="es">Backend e IA aplicada.</span>
+        <span class="lang-block" data-lang="en" hidden>Backend & applied AI.</span>
       </h1>
 
       <p class="hero__subtitle reveal-up" style="--i:7" data-i18n="hero.subtitle">
@@ -117,6 +105,7 @@
   </section>
 
   <!-- EDUCATION -->
+  <div class="section-divider" aria-hidden="true"><span class="section-divider__line"></span></div>
   <section class="education" id="education">
     <div class="section-head" data-reveal>
       <span class="section-label" data-i18n="education.label">( 02 ) — Educación</span>
@@ -151,6 +140,7 @@
   </section>
 
   <!-- EXPERIENCE -->
+  <div class="section-divider" aria-hidden="true"><span class="section-divider__line"></span></div>
   <section class="experience" id="experience">
     <div class="section-head" data-reveal>
       <span class="section-label" data-i18n="experience.label">( 03 ) — Experiencia</span>
@@ -187,66 +177,68 @@
   </section>
 
   <!-- PROJECTS -->
+  <div class="section-divider" aria-hidden="true"><span class="section-divider__line"></span></div>
   <section class="projects" id="projects">
     <div class="section-head" data-reveal>
       <span class="section-label" data-i18n="projects.label">( 04 ) — Proyectos</span>
       <h2 class="section-heading" data-i18n="projects.heading">Proyectos</h2>
     </div>
 
-    <div class="stack">
-      <article class="stack__card" style="--stack-i:0">
-        <div class="stack__card-inner">
-          <div class="stack__top">
-            <span class="stack__year" data-i18n="projects.clinics.year">2025</span>
-            <span class="stack__tag" data-i18n="projects.clinics.tag">AWS · Docker · RAG · n8n</span>
-          </div>
-          <h3 data-i18n="projects.clinics.title">Sistemas de IA y automatización para clínicas</h3>
-          <p data-i18n="projects.clinics.desc">Agentes con arquitectura RAG, bots de WhatsApp 24/7 y agentes de voz mediante la API de Meta que gestionan citas y atención básica, integrados con los sistemas de gestión de las clínicas. Desplegado en AWS (EC2) con Docker para alta disponibilidad.</p>
-          <div class="stack__impact">
-            <span data-i18n="projects.impactLabel">Impacto</span>
-            <strong data-i18n="projects.clinics.impact">Horas de gestión administrativa liberadas cada semana.</strong>
-          </div>
-          <span class="stack__badge" data-i18n="projects.private">Proyecto privado</span>
-        </div>
-      </article>
+    <div class="projects-scroll">
+      <div class="projects-scroll__sticky">
+        <div class="projects-scroll__track" id="projects-track">
 
-      <article class="stack__card" style="--stack-i:1">
-        <div class="stack__card-inner">
-          <div class="stack__top">
-            <span class="stack__year" data-i18n="projects.meetmind.year">2025</span>
-            <span class="stack__tag" data-i18n="projects.meetmind.tag">FastAPI · LangGraph · Gemini · WebSockets</span>
-          </div>
-          <h3 data-i18n="projects.meetmind.title">MeetMind — Agente de inteligencia para reuniones</h3>
-          <p data-i18n="projects.meetmind.desc">Un agente autónomo que se une a videollamadas, transcribe en tiempo real y extrae decisiones, tareas y riesgos con un pipeline de 5 nodos construido en LangGraph.</p>
-          <div class="stack__impact">
-            <span data-i18n="projects.roleLabel">Rol</span>
-            <strong data-i18n="projects.meetmind.role">Arquitectura backend y diseño del agente de IA</strong>
-          </div>
-          <a class="stack__badge stack__badge--link" href="https://github.com/Luislopezleon/Meetmind" target="_blank" rel="noopener">
-            <span data-i18n="projects.viewRepo">Ver repositorio</span> ↗
-          </a>
-        </div>
-      </article>
+          <article class="project-card">
+            <div class="project-card__top">
+              <span class="project-card__year" data-i18n="projects.clinics.year">2025</span>
+              <span class="project-card__tag" data-i18n="projects.clinics.tag">AWS · Docker · RAG · n8n</span>
+            </div>
+            <h3 data-i18n="projects.clinics.title">Sistemas de IA y automatización para clínicas</h3>
+            <p data-i18n="projects.clinics.desc">Agentes con arquitectura RAG, bots de WhatsApp 24/7 y agentes de voz mediante la API de Meta que gestionan citas y atención básica, integrados con los sistemas de gestión de las clínicas. Desplegado en AWS (EC2) con Docker para alta disponibilidad.</p>
+            <div class="project-card__impact">
+              <span data-i18n="projects.impactLabel">Impacto</span>
+              <strong data-i18n="projects.clinics.impact">Horas de gestión administrativa liberadas cada semana.</strong>
+            </div>
+            <span class="project-card__badge" data-i18n="projects.private">Proyecto privado</span>
+          </article>
 
-      <article class="stack__card" style="--stack-i:2">
-        <div class="stack__card-inner">
-          <div class="stack__top">
-            <span class="stack__year" data-i18n="projects.ml.year">Dic 2025</span>
-            <span class="stack__tag" data-i18n="projects.ml.tag">Python · Scikit-Learn · Pandas</span>
-          </div>
-          <h3 data-i18n="projects.ml.title">Predicción de enfermedad cardíaca</h3>
-          <p data-i18n="projects.ml.desc">Modelo predictivo sobre datos clínicos, comparando algoritmos de Machine Learning hasta lograr un 89% de precisión con Random Forest.</p>
-          <div class="stack__impact">
-            <span data-i18n="projects.impactLabel">Impacto</span>
-            <strong data-i18n="projects.ml.impact">89% de precisión tras ajuste exhaustivo de hiperparámetros.</strong>
-          </div>
-          <span class="stack__badge" data-i18n="projects.academic">Proyecto académico</span>
+          <article class="project-card">
+            <div class="project-card__top">
+              <span class="project-card__year" data-i18n="projects.meetmind.year">2025</span>
+              <span class="project-card__tag" data-i18n="projects.meetmind.tag">FastAPI · LangGraph · Gemini · WebSockets</span>
+            </div>
+            <h3 data-i18n="projects.meetmind.title">MeetMind — Agente de inteligencia para reuniones</h3>
+            <p data-i18n="projects.meetmind.desc">Un agente autónomo que se une a videollamadas, transcribe en tiempo real y extrae decisiones, tareas y riesgos con un pipeline de 5 nodos construido en LangGraph.</p>
+            <div class="project-card__impact">
+              <span data-i18n="projects.roleLabel">Rol</span>
+              <strong data-i18n="projects.meetmind.role">Arquitectura backend y diseño del agente de IA</strong>
+            </div>
+            <a class="project-card__badge project-card__badge--link" href="https://github.com/Luislopezleon/Meetmind" target="_blank" rel="noopener">
+              <span data-i18n="projects.viewRepo">Ver repositorio</span> ↗
+            </a>
+          </article>
+
+          <article class="project-card">
+            <div class="project-card__top">
+              <span class="project-card__year" data-i18n="projects.ml.year">Dic 2025</span>
+              <span class="project-card__tag" data-i18n="projects.ml.tag">Python · Scikit-Learn · Pandas</span>
+            </div>
+            <h3 data-i18n="projects.ml.title">Predicción de enfermedad cardíaca</h3>
+            <p data-i18n="projects.ml.desc">Modelo predictivo sobre datos clínicos, comparando algoritmos de Machine Learning hasta lograr un 89% de precisión con Random Forest.</p>
+            <div class="project-card__impact">
+              <span data-i18n="projects.impactLabel">Impacto</span>
+              <strong data-i18n="projects.ml.impact">89% de precisión tras ajuste exhaustivo de hiperparámetros.</strong>
+            </div>
+            <span class="project-card__badge" data-i18n="projects.academic">Proyecto académico</span>
+          </article>
+
         </div>
-      </article>
+      </div>
     </div>
   </section>
 
   <!-- SKILLS -->
+  <div class="section-divider" aria-hidden="true"><span class="section-divider__line"></span></div>
   <section class="skills" id="skills">
     <div class="section-head" data-reveal>
       <span class="section-label" data-i18n="skills.label">( 05 ) — Skills</span>
@@ -297,6 +289,8 @@
   <section class="contact" id="contact">
     <div class="marquee" aria-hidden="true">
       <div class="marquee__track">
+        <span data-i18n="contact.marquee">ESCRÍBEME · CONECTEMOS · HABLEMOS DE TU PROYECTO · </span>
+        <span data-i18n="contact.marquee">ESCRÍBEME · CONECTEMOS · HABLEMOS DE TU PROYECTO · </span>
         <span data-i18n="contact.marquee">ESCRÍBEME · CONECTEMOS · HABLEMOS DE TU PROYECTO · </span>
         <span data-i18n="contact.marquee">ESCRÍBEME · CONECTEMOS · HABLEMOS DE TU PROYECTO · </span>
       </div>
