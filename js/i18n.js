@@ -15,15 +15,15 @@ export const translations = {
     hero: {
       badge: "Disponible para prácticas",
       subtitle:
-        "Estudiante de Ingeniería Informática especializado en backend y automatización con IA. Diseño sistemas eficientes y dejo que las máquinas hagan el trabajo repetitivo.",
+        "Estudiante de Ingeniería Informática con mención en Ciencias de la Computación. Diseño sistemas eficientes y dejo que las máquinas hagan el trabajo repetitivo.",
       location: "Córdoba, España",
       scroll: "scroll",
     },
     about: {
       label: "( 01 ) — Sobre mí",
-      heading: "Soy Luis. Ingeniero por formación, automatizador por obsesión.",
+      heading: "Soy Luis. Ingeniero en formación.",
       body:
-        "Empecé programando en C y C++ para entender cómo funcionan las cosas por dentro, y hoy construyo APIs y microservicios en Python que casi funcionan solos. Uso la IA como una herramienta más del oficio: para refactorizar, diagnosticar y acelerar lo que antes llevaba horas. Ahora mismo sigo aprendiendo — parte del curso lo haré en Ostrava, República Checa, dentro de mi programa Erasmus+.",
+        "Empecé programando en C y C++ para entender cómo funcionan las cosas por dentro, y hoy estoy inmerso en el mundo de la inteligencia artificial y el desarrollo de software. Uso la IA como una herramienta más del oficio: para refactorizar, diagnosticar y acelerar lo que antes llevaba horas. Ahora mismo sigo aprendiendo — parte del curso lo haré en Ostrava, República Checa, dentro de mi programa Erasmus+.",
     },
     education: {
       label: "( 02 ) — Educación",
@@ -128,15 +128,15 @@ export const translations = {
     hero: {
       badge: "Open to internships",
       subtitle:
-        "Computer Engineering student specialized in backend development and AI-driven automation. I design efficient systems and let machines handle the repetitive work.",
+        "Computer Engineering student specialized in Computer Science. I design efficient systems and let machines handle the repetitive work.",
       location: "Córdoba, Spain",
       scroll: "scroll",
     },
     about: {
       label: "( 01 ) — About",
-      heading: "I'm Luis. Engineer by training, automator by obsession.",
+      heading: "I'm Luis. Engineer in training.",
       body:
-        "I started coding in C and C++ to understand how things actually work under the hood, and today I build APIs and microservices in Python that almost run themselves. I use AI as just another tool of the trade: to refactor, diagnose, and speed up what used to take hours. Right now I'm still learning — part of my degree will happen in Ostrava, Czech Republic, through my Erasmus+ exchange.",
+        "I started coding in C and C++ to understand how things actually work under the hood, and today I am obssesed with artificial intelligence and software development. I use AI as just another tool of the trade: to refactor, diagnose, and speed up what used to take hours. Right now I'm still learning — part of my degree will happen in Ostrava, Czech Republic, through my Erasmus+ exchange.",
     },
     education: {
       label: "( 02 ) — Education",
