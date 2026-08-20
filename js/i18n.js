@@ -13,9 +13,9 @@ export const translations = {
       contact: "Contacto",
     },
     hero: {
-      badge: "Disponible para prácticas",
+      badge: "Luis López León",
       subtitle:
-        "Estudiante de Ingeniería Informática con mención en Ciencias de la Computación. Diseño sistemas eficientes y dejo que las máquinas hagan el trabajo repetitivo.",
+        "Estudiante de Ingeniería Informática con mención en Ciencias de la Computación.",
       location: "Córdoba, España",
       scroll: "scroll",
     },
@@ -126,9 +126,9 @@ export const translations = {
       contact: "Contact",
     },
     hero: {
-      badge: "Open to internships",
+      badge: "Luis López León",
       subtitle:
-        "Computer Engineering student specialized in Computer Science. I design efficient systems and let machines handle the repetitive work.",
+        "Computer Engineering student specialized in Computer Science.",
       location: "Córdoba, Spain",
       scroll: "scroll",
     },
