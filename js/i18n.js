@@ -23,7 +23,7 @@ export const translations = {
       label: "( 01 ) — Sobre mí",
       heading: "Soy Luis. Ingeniero en formación.",
       body:
-        "Empecé programando en C y C++ para entender cómo funcionan las cosas por dentro, y hoy estoy inmerso en el mundo de la inteligencia artificial y el desarrollo de software. Uso la IA como una herramienta más del oficio: para refactorizar, diagnosticar y acelerar lo que antes llevaba horas. Ahora mismo sigo aprendiendo — parte del curso lo haré en Ostrava, República Checa, dentro de mi programa Erasmus+.",
+        "Empecé programando en C y C++ para entender cómo funcionan las cosas por dentro, y hoy estoy inmerso en el mundo de la inteligencia artificial y el desarrollo de software. Uso la IA como una herramienta más del oficio: para refactorizar, diagnosticar y acelerar lo que antes llevaba horas. Ahora mismo sigo aprendiendo — parte del curso la hice en Ostrava, República Checa, dentro de mi programa Erasmus+.",
     },
     education: {
       label: "( 02 ) — Educación",
@@ -136,7 +136,7 @@ export const translations = {
       label: "( 01 ) — About",
       heading: "I'm Luis. Engineer in training.",
       body:
-        "I started coding in C and C++ to understand how things actually work under the hood, and today I am obssesed with artificial intelligence and software development. I use AI as just another tool of the trade: to refactor, diagnose, and speed up what used to take hours. Right now I'm still learning — part of my degree will happen in Ostrava, Czech Republic, through my Erasmus+ exchange.",
+        "I started coding in C and C++ to understand how things actually work under the hood, and today I am obssesed with artificial intelligence and software development. I use AI as just another tool of the trade: to refactor, diagnose, and speed up what used to take hours. Right now I'm still learning — part of my degree happened in Ostrava, Czech Republic, through my Erasmus+ exchange.",
     },
     education: {
       label: "( 02 ) — Education",
